@@ -1,0 +1,71 @@
+<!-- Header -->
+{% block header_site %}
+{% load static%}
+<div class="container">
+    <div class="row justify-content-between">
+      <div class="col-12 col-md-2 d-flex align-items-center justify-content-center">
+        <a href="{% url "index" %}"><img src="{% static "aplicacion/img/pcshop_logo.png" %}" alt="pcshopLogo" height="74"></a>
+      </div>
+      <div class="col-12 col-sm-6 col-md-5 d-flex align-items-center justify-content-center">
+        <div class="row">
+          <div class="col-8 col-lg-8">
+            <input type="text" class="form-control" placeholder="Buscar un producto...">
+          </div>
+          <div class="col-4 col-sm-4">
+            <button class="btn btn-secondary"><a href="{% url "busqueda" %}">Buscar</a></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-4 align-items-center justify-content-center">
+        <div class="row justify-content-center mt-3 mb-3">
+          <button type="button" class="btn btn-primary col-12 col-sm-3 w-auto m-1">
+            <a href="{% url "carrito" %}">Carrito</a>
+          </button>
+          <button type="button" class="btn btn-secondary col-12 col-sm-4 w-auto m-1">
+            <a href="{% url "login" %}">Ingresar</a>
+            <button type="button" class="btn btn-success col-12 col-sm-5 w-auto m-1">
+              <a href="{% url "dashboard" %}">Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-xxl navbar-dark  bg-dark ">
+    <a class="navbar-brand ms-3" href="{% url "index" %}">Inicio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "productos" %}">Procesadores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "productos" %}">GPUS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "productos" %}">Motherboards</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "productos" %}">Memorias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "productos" %}">Discos Duros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "productos" %}">Gabinetes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "productos" %}">Fuentes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "productos" %}">Ventilación</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "productos" %}">Accesorios</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  {% endblock header_site %}
+  <!-- Fin Header -->
