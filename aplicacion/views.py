@@ -32,3 +32,15 @@ def registro(request):
 # Sitios del dashboard
 def dashboard(request):
     return render(request,'aplicacion/dashboard/dashboard.html')
+def añadirProducto(request):
+    return render(request,'aplicacion/dashboard/añadirproducto.html')
+def listaClientes(request):
+    return render(request,'aplicacion/dashboard/listaclientes.html')
+def editarProducto(request):
+    return render(request,'aplicacion/dashboard/editarproducto.html')
+def infoUsuario(request):
+    return render(request,'aplicacion/dashboard/infousuario.html')
+def listaProductos(request):
+    return render(request,'aplicacion/dashboard/listaproductos.html')
+def ventas(request):
+    return render(request,'aplicacion/dashboard/ventas.html')

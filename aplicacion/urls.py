@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from .views import busqueda, carrito, dashboard, exito, index, info_producto, login, pago, productos, registro
+from .views import añadirProducto, busqueda, carrito, dashboard, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, pago, productos, registro, ventas
 
 urlpatterns = [
     #URLS DE APLICACION
@@ -15,4 +15,10 @@ urlpatterns = [
     path('registro/',registro, name='registro'),
     #URLS DE DASHBOARD
     path('dashboard/', dashboard, name='dashboard'),
+    path('dashboard/añadir', añadirProducto, name='añadir'),
+    path('dashboard/cliente', listaClientes, name='cliente'),
+    path('dashboard/editar', editarProducto, name='editar'),
+    path('dashboard/usuario', infoUsuario, name='usuario'),
+    path('dashboard/productos', listaProductos, name='productos'),
+    path('dashboard/ventas', ventas, name='ventas'),
 ]
