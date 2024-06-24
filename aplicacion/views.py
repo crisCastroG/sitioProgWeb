@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+from .models import Cliente
+from django.shortcuts import get_object_or_404, redirect
 # Create your views here.
 
 def index(request):
@@ -34,8 +35,8 @@ def dashboard(request):
     return render(request,'aplicacion/dashboard/dashboard.html')
 def añadirProducto(request):
     return render(request,'aplicacion/dashboard/añadirproducto.html')
-def listaClientes(request):
-    return render(request,'aplicacion/dashboard/listaclientes.html')
+#def listaClientes(request):
+    #return render(request,'aplicacion/dashboard/listaclientes.html')
 def editarProducto(request):
     return render(request,'aplicacion/dashboard/editarproducto.html')
 def infoUsuario(request):
@@ -44,3 +45,26 @@ def listaProductos(request):
     return render(request,'aplicacion/dashboard/listaproductos.html')
 def ventas(request):
     return render(request,'aplicacion/dashboard/ventas.html')
+def modificarCliente(request):
+    return render(request,'aplicacion/dashboard/modificarcliente.html')
+def eliminarCliente(request):
+    return render(request,'aplicacion/dashboard/eliminarcliente.html')
+
+def listaClientes(request):
+    clientes=Cliente.objects.all()
+    
+    datos={
+        "clientes":clientes
+    }
+
+    return render(request,'aplicacion/dashboard/listaclientes.html', datos)
+
+def infoUsuario(request, id):
+    
+    #persona=Persona.objects.get(rut=id)
+    cliente=get_object_or_404(Cliente,rut_cli=id)
+    
+    datos={
+        "cliente":cliente
+    }
+    return render(request,'aplicacion/dashboard/infousuario.html',datos)

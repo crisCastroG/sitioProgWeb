@@ -15,54 +15,44 @@
 
 <body>
     {% include "aplicacion/dashboard/navbar.html"%}
-    <div class="row">
-        <div class="col">
-            <div class="container-fluid" style="margin-top: 4vw; margin-right: 2vw;">
-                <H1 class="font-monospace  text-uppercase text-center">Informacion Cliente </H1>
+    <div class="container mt-4">
+        <!--['rut','nombre','apellido','f_nacto','email','imagen']-->
+        <div class="row">
+            <div class="col-sm-4">
+                
             </div>
-            <div class="container border-light " style="width: 550px;">
-                <div class="mb-3">
-                <label for="" class="form-label">Nombre completo</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    name="nombre"
-                    id="nombre"
-                    placeholder="Hector Nahuelpan"
-                    required
-                    maxlength="50"
-                    readonly
-                />
+    
+            <div class="col-sm-4">
+                <div>
+                    <div class="card mt-5">
+                        
+                        <div class="card-body">
+                            <h2 class="card-title text-center">{{cliente.nombre_c}}</h2>
+                            <div class="p-2">
+                                <img class="card-img-top" src="{{cliente.imagen.url}}" alt="imagen_cli" />
+                            </div>
+                            
+                            <p class="card-text"><span style="font-weight:bold;">Rut: </span>{{cliente.rut_cli}}</p>
+                            <p class="card-text"><span style="font-weight:bold;">Correo Electronico: </span>{{cliente.email}}</p>
+                            <p class="card-text"><span style="font-weight:bold;">Direccion: </span>{{cliente.direccion}}</p>
+                        </div>
+                        <div class="mt-3 mb-2 p-2">
+                            <a href="{% url 'modificar' cliente.rut_cli %}" role="button" class="btn btn-warning btn-lg text-light">Modificar</a>                       </a>
+                            <a href="{% url 'eliminar' cliente.rut_cli %}" role="button" class="btn btn-danger border btn-lg">Eliminar</a>
+                            <a href="{% url 'cliente' %}" role="button" class="btn btn-light border btn-lg">Volver</a>
+                            
+                            
+                        </div>
+                    </div>
+                  
+                    
+    
+    
+    
                 </div>
-                <div class="mb-3">
-                <label for="" class="form-label">Rut</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    name="rut"
-                    id="rut"
-                    placeholder="21289801-9"
-                    required
-                    onblur="validarRut()"
-                    readonly
-                />
-                <p class="text-danger" id="ruterror"></p>
-                </div>
-                <div class="mb-3">
-                <label for="" class="form-label">Email</label>
-                <input
-                    type="email"
-                    class="form-control"
-                    name="email"
-                    placeholder="he.nahuelpan@duocuc.cl"
-                    id="correo"
-                    required
-                    maxlength="50"
-                    readonly
-
-                />
-                </div>
-                <div style="margin-top: 1vw">
-                    <a  href="../dashboard/cliente.html">Volver</a>
-                </div>
+    
+            </div>
+    
+            <div class="col-sm-4"></div>
+        </div>
     </div>

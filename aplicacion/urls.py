@@ -1,6 +1,7 @@
 from django.urls import path, include
-
-from .views import añadirProducto, busqueda, carrito, dashboard, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, pago, productos, registro, ventas
+from django.conf import settings
+from django.conf.urls.static import static
+from .views import añadirProducto, busqueda, carrito, dashboard, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, pago, productos, registro, ventas, modificarCliente, eliminarCliente
 
 urlpatterns = [
     #URLS DE APLICACION
@@ -18,7 +19,12 @@ urlpatterns = [
     path('dashboard/añadir', añadirProducto, name='añadir'),
     path('dashboard/cliente', listaClientes, name='cliente'),
     path('dashboard/editar', editarProducto, name='editar'),
-    path('dashboard/usuario', infoUsuario, name='usuario'),
+    path('dashboard/usuario/<id>', infoUsuario, name='usuario'),
     path('dashboard/productos', listaProductos, name='productos'),
     path('dashboard/ventas', ventas, name='ventas'),
+    path('dashboard/modificar/<id>', modificarCliente, name='modificar'),
+    path('dashboard/eliminar/<id>', eliminarCliente, name='eliminar'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
