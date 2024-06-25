@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'aplicacion',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +51,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+LOGIN_REDIRECT_URL="/"
+
+LOGOUT_REDIRECT_URL="/"
 
 ROOT_URLCONF = 'sitio.urls'
 
@@ -69,6 +75,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'sitio.wsgi.application'
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 
 # Database
@@ -130,3 +140,4 @@ MEDIA_URL='media/'
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'aplicacion/media')
 
+#AUTH_USER_MODEL = 'aplicacion.User'

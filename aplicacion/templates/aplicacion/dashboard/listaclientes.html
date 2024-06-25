@@ -31,12 +31,12 @@
 
           {% for p in clientes %}
           <td><img src="{{p.imagen.url}}" alt="imagen_cli" height="100"> </td>
-          <td>{{p.rut_cli}}</td>
-          <td>{{p.nombre_c}}</td>
+          <td>{{p.rut}}</td>
+          <td>{{p.nombre}}</td>
           <td>{{p.email}}</td>
           <td>{{p.direccion}}</td>
           
-          <td><a href="{% url "usuario" p.rut_cli %}" role="button" class="btn btn-info btn-sm text-light">Ver detalles</a></td> 
+          <td><a href="{% url "usuario" p.rut %}" role="button" class="btn btn-info btn-sm text-light">Ver detalles</a></td> 
           </tr>
           {% endfor %}
           <tr>

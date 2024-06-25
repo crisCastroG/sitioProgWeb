@@ -5,8 +5,8 @@ from aplicacion.enumeraciones import ESTADO_PEDIDO
 # Create your models here.
 class Cliente(models.Model):
     imagen=models.ImageField(upload_to='personas', null=True)
-    rut_cli=models.CharField(max_length=10, primary_key=True, null=False)
-    nombre_c=models.CharField(max_length=50, null=False)
+    rut=models.CharField(max_length=10, primary_key=True, null=False)
+    nombre=models.CharField(max_length=50, null=False)
     email=models.EmailField(verbose_name='E-mail')
     direccion=models.CharField(max_length=500, null=False)
 

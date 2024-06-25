@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import Cliente
 from django.shortcuts import get_object_or_404, redirect
+from .forms import UpdClienteForm
+from django.contrib import messages
 # Create your views here.
 
 def index(request):
@@ -62,9 +64,28 @@ def listaClientes(request):
 def infoUsuario(request, id):
     
     #persona=Persona.objects.get(rut=id)
-    cliente=get_object_or_404(Cliente,rut_cli=id)
+    cliente=get_object_or_404(Cliente,rut=id)
     
     datos={
         "cliente":cliente
     }
     return render(request,'aplicacion/dashboard/infousuario.html',datos)
+
+def modificarCliente(request,id):
+    cliente=get_object_or_404(Cliente, rut=id)
+    form=UpdClienteForm(instance=cliente)
+    
+    
+    if request.method=="POST":
+         form=UpdClienteForm(request.POST, files=request.FILES, instance=cliente)
+         if form.is_valid():
+             form.save()
+             messages.set_level(request,messages.WARNING)
+             messages.warning(request,"Cliente modificado")
+             return redirect(to="cliente")
+    
+    datos={
+        'cliente':cliente,
+        'form':form
+    }
+    return render(request,'aplicacion/dashboard/modificarcliente.html',datos)
