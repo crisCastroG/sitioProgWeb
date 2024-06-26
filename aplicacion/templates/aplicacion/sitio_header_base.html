@@ -17,14 +17,22 @@
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-4 align-items-center justify-content-center">
+        {% if user.is_authenticated %}
         <div class="row justify-content-center mt-3 mb-3">
           <button type="button" class="btn btn-primary col-12 col-sm-3 w-auto m-1">
             <a href="{% url "carrito" %}">Carrito</a>
-          </button>
+          </button
+          <button type="button" class="btn btn-secondary col-12 col-sm-4 w-auto m-1">
+            <a href="{% url "salir" %}">Cerrar sesión</a>
+            <button type="button" class="btn btn-success col-12 col-sm-5 w-auto m-1">
+              <a href="{% url "dashboard" %}">Dashboard</a>
+        {% else %}
+        <div class="row justify-content-center mt-3 mb-3">
           <button type="button" class="btn btn-secondary col-12 col-sm-4 w-auto m-1">
             <a href="{% url "login" %}">Ingresar</a>
             <button type="button" class="btn btn-success col-12 col-sm-5 w-auto m-1">
               <a href="{% url "dashboard" %}">Dashboard</a>
+        {% endif %}
         </div>
       </div>
     </div>
@@ -67,5 +75,35 @@
       </ul>
     </div>
   </nav>
+  {% if messages %}
+
+  {% for message in messages %}
+
+    {% if message.level == 25 %}
+      <script>
+        //alerta de exito
+        Swal.fire({
+          title: 'Éxito!!!',
+          text: '{{ message }}',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        })
+      </script>
+    {% endif %}
+
+        {% if message.level == 30 %}
+          <script>
+            //alerta de advertencia
+            Swal.fire({
+              title: 'Éxito!!! ',
+              text: '{{ message }}',
+              icon: 'warning',
+              confirmButtonText: 'Ok'
+            })
+          </script>
+        {% endif %}
+  {% endfor %}
+
+  {% endif %}
   {% endblock header_site %}
   <!-- Fin Header -->

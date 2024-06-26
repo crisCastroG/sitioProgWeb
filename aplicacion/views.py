@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from .models import Cliente, Producto
 from django.shortcuts import get_object_or_404, redirect
-from .forms import UpdClienteForm, ProductoForm, UpdProductoForm
+from .forms import UpdClienteForm, ProductoForm, UpdProductoForm, CustomCreationForm
 from django.contrib import messages
 from os import path, remove
+from django.contrib.auth import logout, authenticate, login
 from django.conf import settings
 # Create your views here.
 
@@ -23,7 +24,11 @@ def info_producto(request):
     return render(request,'aplicacion/info_producto.html')
 
 def login(request):
-    return render(request,'aplicacion/login.html')
+    return render(request,'aplicacion/registration/login.html')
+
+def salir(request):
+    logout(request)
+    return redirect(to='index')
 
 def pago(request):
     return render(request,'aplicacion/pago.html')
@@ -32,7 +37,19 @@ def productos(request):
     return render(request,'aplicacion/productos.html')
 
 def registro(request):
-    return render(request,'aplicacion/registro.html')
+    data = {
+        'form': CustomCreationForm()
+    }
+    if request.method == 'POST':
+        formulario = CustomCreationForm(data = request.POST)
+        if request.method=="POST":
+                form=CustomCreationForm(data=request.POST)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, "Registro de usuario exitoso")
+                    return redirect(to="index")                    
+        data["form"] = formulario
+    return render(request,'registration/registro.html', data)
 
 # Sitios del dashboard
 def dashboard(request):
