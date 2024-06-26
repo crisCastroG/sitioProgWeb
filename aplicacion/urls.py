@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import añadirProducto, busqueda, carrito, dashboard, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, pago, productos, registro, ventas, modificarCliente, eliminarCliente
+from .views import añadirProducto, busqueda, carrito, dashboard, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, pago, productos, registro, ventas, modificarCliente, eliminarCliente,eliminarProducto,modificarProducto
 
 urlpatterns = [
     #URLS DE APLICACION
@@ -18,12 +18,14 @@ urlpatterns = [
     path('dashboard/', dashboard, name='dashboard'),
     path('dashboard/añadir', añadirProducto, name='añadir'),
     path('dashboard/cliente', listaClientes, name='cliente'),
-    path('dashboard/editar', editarProducto, name='editar'),
+    path('dashboard/editar/<id>', editarProducto, name='editar'),
     path('dashboard/usuario/<id>', infoUsuario, name='usuario'),
-    path('dashboard/productos', listaProductos, name='productos'),
+    path('dashboard/productos/', listaProductos, name='productos'),
     path('dashboard/ventas', ventas, name='ventas'),
     path('dashboard/modificar/<id>', modificarCliente, name='modificar'),
     path('dashboard/eliminar/<id>', eliminarCliente, name='eliminar'),
+    path('dashboard/eliminarp/<id>', eliminarProducto, name='eliminarp'),
+    path('dashboard/modificarp/<id>', modificarProducto, name='modificarp'),
 ]
 
 if settings.DEBUG:
