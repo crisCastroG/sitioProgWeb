@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .models import Cliente, Producto
+from .models import Cliente, Producto, Pedidos
 from django.shortcuts import get_object_or_404, redirect
-from .forms import UpdClienteForm, ProductoForm, UpdProductoForm, CustomCreationForm
+from .forms import UpdClienteForm, ProductoForm, UpdProductoForm, CustomCreationForm, UpdVentaForm
 from django.contrib import messages
 from os import path, remove
 from django.contrib.auth import logout, authenticate, login
@@ -74,6 +74,8 @@ def eliminarProducto(request):
     return render(request,'aplicacion/dashboard/eliminarproducto.html')
 def modificarProducto(request):
     return render(request,'aplicacion/dashboard/modificarproducto.html')
+def detalleVenta(request):
+    return render(request,'aplicacion/dashboard/detalles_venta.html')
 
 def listaClientes(request):
     clientes=Cliente.objects.all()
@@ -199,3 +201,34 @@ def eliminarProducto(request, id):
         messages.error(request, 'Producto Eliminado')
         return redirect(to='productos')
     return render(request,'aplicacion/dashboard/eliminarproducto.html',datos)
+
+def ventas(request):
+    pedido=Pedidos.objects.all()
+    clientes=Cliente.objects.all()
+    
+
+    datos={
+        "pedido":pedido,
+        "clientes":clientes
+    }
+
+    return render(request,'aplicacion/dashboard/ventas.html', datos)
+
+def detalleVenta(request,id):
+    pedidos=get_object_or_404(Pedidos, nro_pedido=id)
+    form=UpdVentaForm(instance=pedidos)
+    
+    
+    if request.method=="POST":
+         form=UpdVentaForm(request.POST, files=request.FILES, instance=Pedidos)
+         if form.is_valid():
+             form.save()
+             messages.set_level(request,messages.WARNING)
+             messages.warning(request,"Venta modificada")
+             return redirect(to="ventas")
+    
+    datos={
+        'pedidos':pedidos,
+        'form':form
+    }
+    return render(request,'aplicacion/dashboard/detalles_venta.html',datos)

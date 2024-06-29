@@ -14,87 +14,36 @@
 <body>
   {% include "aplicacion/dashboard/navbar.html"%}
   <div class="container-fluid" style="margin-top: 5vw;">
-    <H1 class="font-monospace  text-uppercase">VENTAS</H1>
-    <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-end ">
-        <li class="page-item disabled">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item active" aria-current="page">
-          <a class="page-link" href="#">1</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">3</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <div style="overflow-x:auto;">
+    <H1 class="font-monospace  text-uppercase">Ventas</H1>
+  
       <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Nro Pedido</th>
-            <th scope="col">Cliente</th>
-            <th scope="col">Correo Cliente</th>
-            <th scope="col">Resumen Pedido</th>
-            <th scope="col">Estado</th>
-            <a href="dashboard.html"></a>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-          <tr class="table">
-            <th class="align-middle" scope="row">246</th>
-            <td class="align-middle text-uppercase">Jorge Gonzales</td>
-            <td class="align-middle text-uppercase">jorg.go@email.com</td>
-            <td class="align-middle text-uppercase ">x1 $299.990 Gigabyte NVIDIA GEFORCE RTX 4060 GAMING OC 8GB</td>
-            <td class="align-middle  text-uppercase">
-              <select name="estados" id="tipo-estado" class="form-select">
-                <option value="completado">Completado</option>
-                <option value="activo" selected>Activo</option>
-                <option value="cancelado">Cancelado</option>
-              </select>
-            </td>
-          </tr>
-          <tr class="table-danger">
-            <th scope="row" class="align-middle">247</th>
-            <td class="align-middle text-uppercase">Emmanuel Flores</td>
-            <td class="align-middle text-uppercase">ema.flo@email.com</td>
-            <td class="align-middle text-uppercase ">x1 $400.000 MSI Tarjeta de Video NVIDIA GeForce RTX 4060 VENTUS 2X
-              BLACK 8G OC</td>
-            <td class="align-middle text-uppercase">
-              <select name="estados" id="tipo-estado" class="form-select">
-                <option value="completado">Completado</option>
-                <option value="activo" selected>Activo</option>
-                <option value="cancelado">Cancelado</option>
-              </select>
-            </td>
-          </tr>
-          <tr class="table-success">
-            <th scope="row" class="align-middle">248</th>
-            <td class="align-middle text-uppercase">Alvaro Sanchez</td>
-            <td class="align-middle text-uppercase">alv.san@email.com</td>
-            <td class="align-middle text-uppercase">x1 ASUS Tarjeta de Video Dual GeForce RTX 3050 OC, 8GB GDDR6
-              <p>x2 RAM Kingston 8GB 3200MHz Fury Beast RGB DDR4</p>
-            </td>
-            <td class="align-middle ">
-              <select name="estados" id="tipo-estado" class="form-select">
-                <option value="completado">Completado</option>
-                <option value="activo" selected>Activo</option>
-                <option value="cancelado">Cancelado</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+          <thead>
+              <tr>
+                <th scope="col">Nro Pedido</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Fecha Pedido</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acciones</th>
+              </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            {% for b in pedido %}
+            {% for p in clientes %}
+            <td>{{b.nro_pedido}}</td>
+            <td>{{p.nombre}}</td>
+            <td>{{b.fecha_pedido}}</td>
+            <td>{{b.estado_pedido}}</td>
+            <td><a href="{% url "detalle" b.nro_pedido %}" role="button" class="btn btn-info btn-sm text-light">Ver detalles</a></td> 
+            </tr>
+            {% endfor %}
+            {% endfor %}
+            <tr>
+          </tbody>
+        </table>
+    
+      </div>
+      <div class="col-sm-1"></div>
     </div>
-  </div>
+    </div>  
 </body>
-
 </html>

@@ -23,7 +23,8 @@ class Pedidos(models.Model):
     rut_cli=models.ForeignKey(Cliente,on_delete=models.PROTECT)
     #correo_pe=models.ForeignKey(Cliente,on_delete=models.PROTECT)
     #resumen_pe=models.CharField(Cliente,on_delete=models.PROTECT)
-    estado_pedido=models.CharField(max_length=10, null=False, choices=ESTADO_PEDIDO)
+    fecha_pedido = models.DateField(null=False)
+    estado_pedido=models.CharField(default='Pendiente', max_length=10, null=False, choices=ESTADO_PEDIDO)
 
 class CarroCompra(models.Model):
     nro_carro=models.CharField(max_length=10, primary_key=True, null=False)
