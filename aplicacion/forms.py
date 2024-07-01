@@ -9,8 +9,7 @@ class UpdClienteForm(forms.ModelForm):
         model = Cliente
         fields = ['nombre','email','direccion','imagen']
 
-class ProductoForm(forms.ModelForm):
-    
+class ProductoForm(forms.ModelForm):   
     codigo=forms.CharField(max_length=10,
                         error_messages={"required":"Ingrese codigo"}, 
                         help_text="Debe ingresar un codigo")
