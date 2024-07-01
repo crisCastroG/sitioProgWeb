@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import CarroCompra, Cliente, Producto, ProductoCarro
+from .models import CarroCompra, Cliente, Pedidos, Producto
 from django.shortcuts import get_object_or_404, redirect
 from .forms import UpdClienteForm, ProductoForm, UpdProductoForm, CustomCreationForm, UpdVentaForm
 from django.contrib import messages
@@ -169,8 +169,6 @@ def eliminarProducto(request):
 @staff_member_required
 def modificarProducto(request):
     return render(request,'aplicacion/dashboard/modificarproducto.html')
-def detalleVenta(request):
-    return render(request,'aplicacion/dashboard/detalles_venta.html')
 
 @staff_member_required
 def listaClientes(request):
@@ -320,12 +318,11 @@ def ventas(request):
 
 def detalleVenta(request,id):
     pedidos=get_object_or_404(Pedidos, nro_pedido=id)
-    cliente=get_object_or_404(Cliente, )
     form=UpdVentaForm(instance=pedidos)
     
     
     if request.method=="POST":
-         form=UpdVentaForm(request.POST, files=request.FILES, instance=pedidos)
+         form=UpdVentaForm(request.POST, files=request.FILES, instance=Pedidos)
          if form.is_valid():
              form.save()
              messages.set_level(request,messages.WARNING)

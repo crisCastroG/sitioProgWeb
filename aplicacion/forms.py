@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cliente, Producto, Pedidos
+from .models import Cliente, Pedidos, Producto
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -26,7 +26,6 @@ class UpdProductoForm(forms.ModelForm):
         fields = ['foto_pro','precio','nombre_pro','descripcion', 'stock']
 
 class CustomCreationForm(UserCreationForm):
-
     
     class Meta:
         model = User

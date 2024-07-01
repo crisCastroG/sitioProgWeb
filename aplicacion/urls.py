@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import añadirProducto, busqueda, carrito, dashboard, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, logout, modificarDatos, modificarPerfil, pago, perfil, productos, registro, salir, ventas, modificarCliente, eliminarCliente,eliminarProducto,modificarProducto, detalleVenta
+from .views import añadirProducto, busqueda, carrito, dashboard, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, logout, modificarDatos, modificarPerfil, pago, perfil, productos, registro, salir, ventas, modificarCliente, eliminarCliente,eliminarProducto,modificarProducto
 
 urlpatterns = [
     #URLS DE APLICACION
@@ -31,7 +31,6 @@ urlpatterns = [
     path('dashboard/eliminar/<id>', eliminarCliente, name='eliminar'),
     path('dashboard/eliminarp/<id>', eliminarProducto, name='eliminarp'),
     path('dashboard/modificarp/<id>', modificarProducto, name='modificarp'),
-    path('dashboard/detalle/<id>', detalleVenta, name='detalle'),
 ]
 
 if settings.DEBUG:
