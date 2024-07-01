@@ -18,7 +18,6 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-              <th scope="col">Imagen</th>
               <th scope="col">Rut Cliente</th>
               <th scope="col">Nombre</th>
               <th scope="col">Email</th>
@@ -30,7 +29,6 @@
         <tbody class="table-group-divider">
 
           {% for p in clientes %}
-          <td><img src="{{p.imagen.url}}" alt="imagen_cli" height="100"> </td>
           <td>{{p.rut}}</td>
           <td>{{p.nombre}}</td>
           <td>{{p.email}}</td>

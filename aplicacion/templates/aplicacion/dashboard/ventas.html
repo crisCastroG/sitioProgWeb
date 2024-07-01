@@ -28,14 +28,12 @@
           </thead>
           <tbody class="table-group-divider">
             {% for b in pedido %}
-            {% for p in clientes %}
             <td>{{b.nro_pedido}}</td>
-            <td>{{p.nombre}}</td>
+            <td>{{b.email.nombre}}</td>
             <td>{{b.fecha_pedido}}</td>
             <td>{{b.estado_pedido}}</td>
             <td><a href="{% url "detalle" b.nro_pedido %}" role="button" class="btn btn-info btn-sm text-light">Ver detalles</a></td> 
             </tr>
-            {% endfor %}
             {% endfor %}
             <tr>
           </tbody>
