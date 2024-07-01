@@ -9,7 +9,6 @@ class Cliente(models.Model):
     rut=models.CharField(max_length=10, null = True)
     nombre=models.CharField(max_length=50, null=True)
     direccion=models.CharField(max_length=500, null=True)
-    imagen=models.ImageField(upload_to='personas', null=True)
 
 class Producto(models.Model):
     codigo=models.CharField(max_length=10, primary_key=True, null=False)

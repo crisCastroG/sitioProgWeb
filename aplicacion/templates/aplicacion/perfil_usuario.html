@@ -44,13 +44,12 @@
         <h3 class="m-4 text-light">Bienvenido, {{user.username}}</h3>
     </div>
     <br>
-    <div class="row"><div class="col-1"></div>
-    <h2 class="col-1" style="text-wrap: nowrap;">Datos del cliente</h2></div>
     <div class="row">
         <div class="col-1"></div>
-        <div class="col-4">
+        <div class="col-12 col-lg-4">
+          <h1> Datos del cliente </h1>
             {% if cliente.rut == None %}
-            <div class="card mt-5">
+            <div class="card">
                 <div class="card-body p-5">
                     <h2 class="card-title">Cliente sin datos, porfavor completa tu perfil</h2>
                     <div class="mt-3 mb-2 p-2 text-center">
@@ -72,7 +71,27 @@
             </div>
             {% endif %} 
         </div>
-        <div class="col-3"></div>
+        <div class="col-12 col-lg-6">
+          <h1> Mis pedidos </h1>
+          <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">Nro Pedido</th>
+                  <th scope="col">Fecha Pedido</th>
+                  <th scope="col">Estado</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              {% for b in pedidos %}
+              <td>{{b.nro_pedido}}</td>
+              <td>{{b.fecha_pedido}}</td>
+              <td>{{b.estado_pedido}}</td> 
+              </tr>
+              {% endfor %}
+              <tr>
+            </tbody>
+          </table>
+        </div>
     </div>
 </body>
 </html>

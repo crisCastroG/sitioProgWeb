@@ -22,8 +22,10 @@ def busqueda(request):
 
 def perfil(request):
     cliente, clienteCreado = Cliente.objects.get_or_create(email = request.user.email)
+    pedidos = Pedido.objects.filter(email = cliente.email)
 
     datos = {
+        'pedidos' : pedidos,
         'cliente' : cliente
     }
 
@@ -80,7 +82,7 @@ def exito(request):
     pedido.save()
     productos = CarroCompra.objects.filter(email_id = request.user.email)
     for p in productos:
-        productoCarro = ProductoCarro(codigo_carro_id = p.codigo ,codigo_producto = p.producto.codigo, cantidad = p.cantidad)
+        productoCarro = ProductoCarro(codigo_producto = p.producto.codigo, cantidad = p.cantidad)
         productoCarro.save()
         pedido.productos.add(productoCarro)
     for p in productos:
