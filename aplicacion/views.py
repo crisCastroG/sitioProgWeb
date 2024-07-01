@@ -21,10 +21,9 @@ def busqueda(request):
 
 def perfil(request):
     cliente, clienteCreado = Cliente.objects.get_or_create(email = request.user.email)
-    form = UpdClienteForm(instance=cliente)
+
     datos = {
-        'cliente' : cliente,
-        'form' : form
+        'cliente' : cliente
     }
 
     return render(request,'aplicacion/perfil_usuario.html', datos)
@@ -47,34 +46,49 @@ def modificarPerfil(request, id):
 
     return render(request,'aplicacion/modificar_perfil.html', datos)
 
+def modificarDatos(request, id):
+    cliente = get_object_or_404(Cliente, email = id)
+    form = UpdClienteForm(instance = cliente)
+
+    if request.method == "POST":
+        form = UpdClienteForm(request.POST, files = request.FILES, instance = cliente)
+        if form.is_valid():
+            form.save()
+            return redirect(to="pago")
+
+    datos = {
+        'cliente' : cliente,
+        'form' : form
+    }
+
+    return render(request,'aplicacion/modificar_datos.html', datos)
+
 def carrito(request):
-    return render(request,'aplicacion/carrito.html')
+    carroCompra = CarroCompra.objects.filter(email_id = request.user.email)
+    total = 0
+    for producto in carroCompra:
+        total += producto.cantidad * int(Producto.objects.get(codigo = producto.producto_id).precio)
+    datos = {
+        'carrito' : carroCompra,
+        'total' : total
+    }
+    return render(request,'aplicacion/carrito.html', datos)
 
 def exito(request):
     return render(request,'aplicacion/exito.html')
 
 def info_producto(request, id):
     producto = get_object_or_404(Producto, codigo = id)
-    datos = {
-        "producto" : producto
-    }
-
-    return render(request,'aplicacion/info_producto.html', datos)
-
-def agregarAlCarro(request, id_producto, id_cliente):
-    producto = get_object_or_404(Producto, codigo = id_producto)
-    cliente = get_object_or_404(Cliente, email = id_cliente)
     if request.method == 'POST':
-        messages.success(request, "Producto agregado al carro")
-        cantidad = request.POST.get('cantidad')
-        (carrito, carritoCreado) = CarroCompra.objects.get_or_create(email = cliente.email)
-        (producto, productoCreado) = ProductoCarro.objects.get_or_create(email = id_cliente, codigo = id_producto, cantidad_producto = cantidad)
-        if productoCreado:
-            carrito.productos.add(producto)            
+        cantidad = int(request.POST.get('cantidad'))
+        carroCompra, creado = CarroCompra.objects.get_or_create(email_id = request.user.email, producto_id = id)
+        if creado == True:
+            CarroCompra.objects.filter(producto_id = id, email_id = request.user.email).update(cantidad = cantidad)
         else:
-            carrito.productos.filter(codigo_producto = id_producto).update(cantidad = producto.cantidad_producto + cantidad)
+            cantidadActual = CarroCompra.objects.get(email_id = request.user.email, producto_id = id).cantidad
+            CarroCompra.objects.filter(producto_id = id, email_id = request.user.email).update(cantidad = cantidadActual + cantidad) 
         messages.success(request, "Producto agregado al carro")
-        
+        redirect(to='aplicacion/info_producto.html') 
     datos = {
         "producto" : producto
     }
@@ -89,7 +103,19 @@ def salir(request):
     return redirect(to='index')
 
 def pago(request):
-    return render(request,'aplicacion/pago.html')
+    carroCompra = CarroCompra.objects.filter(email_id = request.user.email)
+    cliente, clienteCreado = Cliente.objects.get_or_create(email = request.user.email)
+    total = 0
+    form = UpdClienteForm(instance = cliente)
+    for producto in carroCompra:
+        total += producto.cantidad * int(Producto.objects.get(codigo = producto.producto_id).precio)
+    datos = {
+        'carrito' : carroCompra,
+        'total' : total,
+        'cliente' : cliente,
+        'form' : form
+    }
+    return render(request,'aplicacion/pago.html', datos)
 
 def productos(request):
     return render(request,'aplicacion/productos.html')

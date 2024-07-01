@@ -1,4 +1,5 @@
 {% load static%}
+{% load mathfilters %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,57 +25,41 @@
     <h1>Tu carro de compra</h1>
     <div class="row justify-content-center">
       <div class="col-12 col-md-9 border rounded ms-5 me-5" style="width: 640px;">
-        <div class="row border-bottom">
-          <div class="col-12 col-sm-3">
-            <img src="{% static "aplicacion/img/gpu.png" %}" class="product-cart" alt="">
-          </div>
-          <div class="col-12 col-sm-7 p-2">
-            <p>GeForce RTX 4060 VENTUS 2X BLACK 8G</p>
-            <p class="text-start">$299000</p>
-          </div>
-          <div class="col-12 col-sm-1 p-2">
-            <p>Cantidad: 1</p>
-            <p>Subtotal: $299000</p>
-          </div>
-        </div>
-        <div class="row border-bottom">
-          <div class="col-12 col-sm-3">
-            <img src="{% static "aplicacion/img/gpu.png" %}" class="product-cart" alt="">
-          </div>
-          <div class="col-12 col-sm-7 p-2">
-            <p>GeForce RTX 4060 VENTUS 2X BLACK 8G</p>
-            <p class="text-start">$299000</p>
-          </div>
-          <div class="col-12 col-sm-1 p-2">
-            <p>Cantidad: 1</p>
-            <p>Subtotal: $299000</p>
-          </div>
-        </div>
-        <div class="row border-bottom">
-          <div class="col-12 col-sm-3">
-            <img src="{% static "aplicacion/img/gpu.png" %}" class="product-cart" alt="">
-          </div>
-          <div class="col-12 col-sm-7 p-2">
-            <p>GeForce RTX 4060 VENTUS 2X BLACK 8G</p>
-            <p class="text-start">$299000</p>
-          </div>
-          <div class="col-12 col-sm-1 p-2">
-            <p>Cantidad: 1</p>
-            <p>Subtotal: $299000</p>
-          </div>
-        </div>
+    {% for  p in carrito %}
+    <div class="row border-bottom">
+      <div class="col-12 col-sm-3">
+        <img src="{{ p.producto.foto_pro.url }}" class="product-cart" alt="">
       </div>
-
+      <div class="col-12 col-sm-7 p-2">
+        <p>{{p.producto.nombre_pro}}</p>
+        <p class="text-start">${{p.producto.precio}}</p>
+      </div>
+      <div class="col-12 col-sm-1 p-2">
+        <p>Cantidad: {{p.cantidad}}</p>
+        {% with precio=p.producto.precio %}
+        <p>Subtotal: ${{ precio|mul:p.cantidad}}</p>
+        {% endwith %}
+      </div>
+    </div>
+    {% empty %}
+    <h2> Aún no agregas nada al carro.</h2>
+    {% endfor %}
+      </div>
       <div class="col-12 col-md-3 border rounded ms-5 me-5 mt-3" style="height: 200px; width:290px">
         <div class="">
           <p class="text-center mt-3 border-bottom ">Resumen del pedido</p>
           <p class="text-center mt-3">Total a pagar:</p>
-          <p class="text-center mt-3">$999990</p>
-          <div class="text-center "><button class="btn btn-success"> <a href="{% url "pago" %}">Ir a pagar</a></button></div>
+          <p class="text-center mt-3">${{total}}</p>
+          <div class="text-center "> <a href="{% url "pago" %}" class="btn btn-success">Ir a pagar</a></div>
         </div>
       </div>
+      </div>
+      </div>
     </div>
-  </div>
+    
 </body>
 
 </html>
+
+
+
