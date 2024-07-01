@@ -130,7 +130,11 @@ def pago(request):
     return render(request,'aplicacion/pago.html', datos)
 
 def categoria(request):
-    return render(request,'aplicacion/categoria.html')
+    productos = Producto.objects.all()
+    datos = {
+        "productos" : productos
+    }
+    return render(request,'aplicacion/categoria.html', datos)
 
 def registro(request):
     data = {

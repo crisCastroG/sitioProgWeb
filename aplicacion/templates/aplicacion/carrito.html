@@ -44,6 +44,8 @@
     {% empty %}
     <h2> Aún no agregas nada al carro.</h2>
     {% endfor %}
+    {% if carrito.first.cantidad == None %}
+    {% else %}
       </div>
       <div class="col-12 col-md-3 border rounded ms-5 me-5 mt-3" style="height: 200px; width:290px">
         <div class="">
@@ -52,6 +54,7 @@
           <p class="text-center mt-3">${{total}}</p>
           <div class="text-center "> <a href="{% url "pago" %}" class="btn btn-success">Ir a pagar</a></div>
         </div>
+    {% endif %}
       </div>
       </div>
       </div>

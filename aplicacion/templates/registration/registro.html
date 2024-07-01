@@ -29,9 +29,6 @@
                 {% csrf_token %}
                 {{ form | crispy }}
                 <div class="text-center"><input type="submit" value="Registrarse" class="btn btn-success mb-3 w-75"></div>
-                <div class="container text-center mt-2 link-style">
-                    <a href="{% url "registro" %}"><h5>Registrate aquí</h5></a>
-                </div>
                 
             </form>
         </div>
