@@ -330,7 +330,6 @@ def detalleVenta(request,id):
     pedidos=get_object_or_404(Pedido, nro_pedido=id)
     form=UpdVentaForm(instance=pedidos)
     
-    
     if request.method=="POST":
          form=UpdVentaForm(request.POST, files=request.FILES, instance=Pedido)
          if form.is_valid():
