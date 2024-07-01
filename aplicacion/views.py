@@ -216,11 +216,12 @@ def ventas(request):
 
 def detalleVenta(request,id):
     pedidos=get_object_or_404(Pedidos, nro_pedido=id)
+    cliente=get_object_or_404(Cliente, )
     form=UpdVentaForm(instance=pedidos)
     
     
     if request.method=="POST":
-         form=UpdVentaForm(request.POST, files=request.FILES, instance=Pedidos)
+         form=UpdVentaForm(request.POST, files=request.FILES, instance=pedidos)
          if form.is_valid():
              form.save()
              messages.set_level(request,messages.WARNING)

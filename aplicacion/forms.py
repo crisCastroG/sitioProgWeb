@@ -27,6 +27,8 @@ class UpdProductoForm(forms.ModelForm):
 class CustomCreationForm(UserCreationForm):
     pass
 
+
+
 class UpdVentaForm(forms.ModelForm):
     class Meta:
         model = Pedidos
