@@ -1,13 +1,14 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import añadirProducto, busqueda, carrito, dashboard, detalleVenta, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, logout, modificarDatos, modificarPerfil, pago, perfil, categoria, registro, salir, ventas, modificarCliente, eliminarCliente,eliminarProducto,modificarProducto
+from .views import añadirProducto, busqueda, carrito, dashboard, detalleVenta, editarCarrito, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, logout, modificarDatos, modificarPerfil, pago, perfil, categoria, registro, salir, ventas, modificarCliente, eliminarCliente,eliminarProducto,modificarProducto
 
 urlpatterns = [
     #URLS DE APLICACION
     path('', index, name='index'),
     path('busqueda/',busqueda, name='busqueda'),
     path('carrito/',carrito, name='carrito'),
+    path('editar_carro/',editarCarrito, name='editar_carrito'),
     path('exito/',exito, name='exito'),
     path('info_producto/<id>',info_producto, name='info_producto'),
     path('pago/',pago, name='pago'),

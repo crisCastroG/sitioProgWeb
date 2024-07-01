@@ -20,6 +20,7 @@
           <h1 class="text-end "> ${{producto.precio}}</h1>
           <p>Cantidad
           <p>
+          {% if user.is_authenticated %}
           <form action="" method="post">
           {% csrf_token %}
           <div class="row justify-content-between ">
@@ -33,6 +34,12 @@
             </div>
           </div>
         </form>
+        {% else %}
+        <div class="col-12 col-sm-6 text-center">
+          <a type="submit" class="btn btn-success" href="{% url "login" %}">
+            Inicia sesión para añadir al carro
+          </a>
+        {% endif%}
         </div>
       </div>
     </div>

@@ -71,11 +71,22 @@ def carrito(request):
     total = 0
     for producto in carroCompra:
         total += producto.cantidad * int(Producto.objects.get(codigo = producto.producto_id).precio)
+
     datos = {
         'carrito' : carroCompra,
         'total' : total
     }
     return render(request,'aplicacion/carrito.html', datos)
+
+def editarCarrito(request):
+    carroCompra = CarroCompra.objects.filter(email_id = request.user.email)
+    for producto in carroCompra:
+        total += producto.cantidad * int(Producto.objects.get(codigo = producto.producto_id).precio)
+    datos = {
+        'carrito' : carroCompra,
+        'total' : total
+    }
+    return render(request,'aplicacion/editar_carro.html', datos)
 
 def exito(request):
     pedido = Pedido(email_id = request.user.email, fecha_pedido = datetime.now())
