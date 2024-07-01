@@ -15,9 +15,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Cliente',
             fields=[
-                ('rut_cli', models.CharField(max_length=10, primary_key=True, serialize=False)),
+                ('rut_cli', models.CharField(max_length=10, serialize=False)),
                 ('nombre_c', models.CharField(max_length=50)),
-                ('email', models.EmailField(max_length=254, verbose_name='E-mail')),
+                ('email', models.EmailField(max_length=254,  primary_key=True,  verbose_name='E-mail')),
                 ('direccion', models.CharField(max_length=500)),
             ],
         ),
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
             name='CarroCompra',
             fields=[
                 ('nro_carro', models.CharField(max_length=10, primary_key=True, serialize=False)),
-                ('rut_cli', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='aplicacion.cliente')),
+                ('email', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='aplicacion.cliente')),
             ],
         ),
         migrations.CreateModel(
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('nro_pedido', models.CharField(max_length=10, primary_key=True, serialize=False)),
                 ('estado_pedido', models.CharField(choices=[('CANCELADO', 'Cancelado'), ('ENVIADO', 'Enviado'), ('PENDIENTE', 'Pendiente')], max_length=10)),
-                ('rut_cli', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='aplicacion.cliente')),
+                ('email', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='aplicacion.cliente')),
             ],
         ),
     ]

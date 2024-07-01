@@ -47,3 +47,8 @@ function compararPass()
 		document.getElementById("passerror").innerHTML = " ";
 	}
 }
+
+function getCantidad()
+{
+	return document.getElementById('cantidad').value
+}

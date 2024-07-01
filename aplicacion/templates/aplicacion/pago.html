@@ -19,47 +19,44 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-12 col-sm-5 border rounded mx-3">
-      <h3 class="m-3">Información del envío</h3>
-      <form action="{% url "index" %}" class="needs-validation">
+      <h3 class="m-3">Información del envío</h3> <br>
+      {% if cliente.rut == None %}
+      <h2 class="m-3">Cliente sin datos, porfavor completa tus datos</h2>
+      <div class="text-center mb-3 ">
+        <a type="submit" href="{% url modificar_informacion %}"class="btn btn-success mt-3">Completar datos</a>
+      </div>
+      {% else %} 
+      <form action="{% url "modificar_datos" user.email %}" class="">
         <div class="mb-3 p-3">
-          <label for="" class="form-label">Dirección del envío</label>
-          <input type="" class="form-control" id="" maxlength="50" required>
-          <label for="" class="form-label">Comuna</label>
-          <input type="" class="form-control" id="" maxlength="50" required>
-          <label for="" class="form-label">Ciudad</label>
-          <input type="" class="form-control" id="" maxlength="50" required>
-          <label for="" class="form-label">Número de contacto</label>
-          <input type="" class="form-control" id="" maxlength="50" pattern="[0-9]" title="Ingrese un número válido" required>
+          <label for="" class="form-label">Rut</label>
+          <input type="" class="form-control" value="{{form.rut.value}}" id="" maxlength="50"  readonly> <br>
+          <label for="" class="form-label" >Nombre</label>
+          <input type="" class="form-control" value="{{form.nombre.value}}"id="" maxlength="50" readonly> <br>
+          <label for="" class="form-label">Direccion de envío</label>
+          <input type="" class="form-control" value="{{form.direccion.value}}" id="" maxlength="50" readonly> <br>
           <div class="text-center mb-3 ">
-            <button type="submit" class="btn btn-success mt-3"> Pagar</button>
+            <button type="submit" class="btn btn-success mt-3"> Modificar datos</button>
           </div>
         </div>
       </form>
+      {% endif %}
     </div>
     <div class="col-12 col-sm-4 border rounded mx-3">
       <div class="">
         <p class="text-center mt-3 border-bottom ">Resumen del pedido</p>
+        {% for p in carrito %}
         <div class="row mt-3">
-          <p class="col-1 col-sm-1" style="font-weight: bold;">x1</p>
-          <p class="col-7 col-sm-8" style="font-weight: bold;">GeForce RTX 4060 VENTUS 2X BLACK 8G</p>
+          <p class="col-1 col-sm-1" style="font-weight: bold;">x{{p.cantidad}}</p>
+          <p class="col-7 col-sm-8" style="font-weight: bold;">{{p.producto.nombre_pro}}</p>
         </div>
-        <div class="row mt-3">
-          <p class="col-1 col-sm-1" style="font-weight: bold;">x1</p>
-          <p class="col-7 col-sm-8" style="font-weight: bold;">GeForce RTX 4060 VENTUS 2X BLACK 8G</p>
-        </div>
-        <div class="row mt-3">
-          <p class="col-1 col-sm-1" style="font-weight: bold;">x1</p>
-          <p class="col-7 col-sm-8" style="font-weight: bold;">GeForce RTX 4060 VENTUS 2X BLACK 8G</p>
-        </div>
-        <div class="row mt-3">
-          <p class="col-1 col-sm-1" style="font-weight: bold;">x1</p>
-          <p class="col-7 col-sm-8" style="font-weight: bold;">GeForce RTX 4060 VENTUS 2X BLACK 8G</p>
-        </div>
+        {% endfor %}
         <div class="row justify-content-around">
           <p class="col-2 ">Total:</p>
-          <p class="col-3 text-end">$9990000</p>
+          <p class="col-3 text-end">${{total}}</p>
         </div>
-
+        <div class="text-center mb-3 ">
+          <a href="" class="btn btn-success mt-3"> Pagar</a>
+        </div>
       </div>
     </div>
   </div>
