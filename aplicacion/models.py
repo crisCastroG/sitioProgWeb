@@ -30,7 +30,7 @@ class Pedidos(models.Model):
     #correo_pe=models.ForeignKey(Cliente,on_delete=models.PROTECT)
     #resumen_pe=models.CharField(Cliente,on_delete=models.PROTECT)
     fecha_pedido = models.DateField(null=False)
-    estado_pedido=models.CharField(default="Pendiente", max_length=10, null=False, choices=ESTADO_PEDIDO)
+    estado_pedido=models.CharField(default='Pendiente', max_length=10, null=False, choices=ESTADO_PEDIDO)
 
 class CarroCompra(models.Model):
     codigo = models.AutoField(primary_key=True,null=False)
