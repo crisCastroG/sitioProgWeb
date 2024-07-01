@@ -329,9 +329,9 @@ def ventas(request):
 def detalleVenta(request,id):
     pedidos=get_object_or_404(Pedido, nro_pedido=id)
     form=UpdVentaForm(instance=pedidos)
-    
+    cliente=get_object_or_404(Cliente, email=pedidos.email.email)
     if request.method=="POST":
-         form=UpdVentaForm(request.POST, files=request.FILES, instance=Pedido)
+         form=UpdVentaForm(request.POST, files=request.FILES, instance=pedidos)
          if form.is_valid():
              form.save()
              messages.set_level(request,messages.WARNING)
@@ -339,6 +339,7 @@ def detalleVenta(request,id):
              return redirect(to="ventas")
     
     datos={
+        'cliente':cliente,
         'pedidos':pedidos,
         'form':form
     }
