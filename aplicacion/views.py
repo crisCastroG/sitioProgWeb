@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import CarroCompra, Cliente, Pedidos, Producto
+from .models import CarroCompra, Cliente, Pedido, Producto, ProductoCarro
 from django.shortcuts import get_object_or_404, redirect
 from .forms import UpdClienteForm, ProductoForm, UpdProductoForm, CustomCreationForm, UpdVentaForm
 from django.contrib import messages
@@ -7,6 +7,7 @@ from os import path, remove
 from django.contrib.auth import logout
 from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
+from datetime import datetime
 
 # Views del sitio
 def index(request):
@@ -75,6 +76,15 @@ def carrito(request):
     return render(request,'aplicacion/carrito.html', datos)
 
 def exito(request):
+    pedido = Pedido(email_id = request.user.email, fecha_pedido = datetime.now())
+    pedido.save()
+    productos = CarroCompra.objects.filter(email_id = request.user.email)
+    for p in productos:
+        productoCarro = ProductoCarro(codigo_carro_id = p.codigo ,codigo_producto = p.producto.codigo, cantidad = p.cantidad)
+        productoCarro.save()
+        pedido.productos.add(productoCarro)
+    for p in productos:
+        p.delete()    
     return render(request,'aplicacion/exito.html')
 
 def info_producto(request, id):
@@ -117,8 +127,8 @@ def pago(request):
     }
     return render(request,'aplicacion/pago.html', datos)
 
-def productos(request):
-    return render(request,'aplicacion/productos.html')
+def categoria(request):
+    return render(request,'aplicacion/categoria.html')
 
 def registro(request):
     data = {
@@ -305,24 +315,24 @@ def eliminarProducto(request, id):
     return render(request,'aplicacion/dashboard/eliminarproducto.html',datos)
 
 def ventas(request):
-    pedido=Pedidos.objects.all()
+    pedidos=Pedido.objects.all()
     clientes=Cliente.objects.all()
     
 
     datos={
-        "pedido":pedido,
+        "pedido":pedidos,
         "clientes":clientes
     }
 
     return render(request,'aplicacion/dashboard/ventas.html', datos)
 
 def detalleVenta(request,id):
-    pedidos=get_object_or_404(Pedidos, nro_pedido=id)
+    pedidos=get_object_or_404(Pedido, nro_pedido=id)
     form=UpdVentaForm(instance=pedidos)
     
     
     if request.method=="POST":
-         form=UpdVentaForm(request.POST, files=request.FILES, instance=Pedidos)
+         form=UpdVentaForm(request.POST, files=request.FILES, instance=Pedido)
          if form.is_valid():
              form.save()
              messages.set_level(request,messages.WARNING)

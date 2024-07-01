@@ -23,7 +23,7 @@
       {% if cliente.rut == None %}
       <h2 class="m-3">Cliente sin datos, porfavor completa tus datos</h2>
       <div class="text-center mb-3 ">
-        <a type="submit" href="{% url modificar_informacion %}"class="btn btn-success mt-3">Completar datos</a>
+        <a type="submit" href="{% url "modificar_datos" user.email %}"class="btn btn-success mt-3">Completar datos</a>
       </div>
       {% else %} 
       <form action="{% url "modificar_datos" user.email %}" class="">
@@ -55,7 +55,7 @@
           <p class="col-3 text-end">${{total}}</p>
         </div>
         <div class="text-center mb-3 ">
-          <a href="" class="btn btn-success mt-3"> Pagar</a>
+          <a href="{% url "exito" %}" class="btn btn-success mt-3"> Pagar</a>
         </div>
       </div>
     </div>

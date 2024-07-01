@@ -19,21 +19,20 @@ class Producto(models.Model):
     descripcion=models.CharField( max_length=500, null=False)
     stock=models.IntegerField(default=0, validators=[MinValueValidator(0),MaxValueValidator(999)],null=False)
 
-class ProductoCarro(models.Model):
-    codigo = models.ForeignKey(Producto, on_delete=models.PROTECT)
-    email=models.ForeignKey(Cliente, on_delete=models.PROTECT)
-    cantidad_producto = models.IntegerField(default=0, validators=[MinValueValidator(0),MaxValueValidator(250)])
-    
-class Pedidos(models.Model):
-    nro_pedido=models.CharField(max_length=10, primary_key=True, null=False)
-    email=models.ForeignKey(Cliente,on_delete=models.PROTECT)
-    #correo_pe=models.ForeignKey(Cliente,on_delete=models.PROTECT)
-    #resumen_pe=models.CharField(Cliente,on_delete=models.PROTECT)
-    fecha_pedido = models.DateField(null=False)
-    estado_pedido=models.CharField(default="Pendiente", max_length=10, null=False, choices=ESTADO_PEDIDO)
-
 class CarroCompra(models.Model):
     codigo = models.AutoField(primary_key=True,null=False)
     email = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=False)
     producto = models.ForeignKey(Producto, on_delete=models.PROTECT, null=False)
     cantidad = models.IntegerField(default=0, validators=[MinValueValidator(0),MaxValueValidator(999)],null=False)
+
+class ProductoCarro(models.Model):
+    id = models.AutoField(primary_key=True,null=False)
+    codigo_producto = models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(999999999)],null=False)
+    cantidad = models.IntegerField(default=0, validators=[MinValueValidator(0),MaxValueValidator(250)])    
+
+class Pedido(models.Model):
+    nro_pedido= models.AutoField(primary_key=True,null=False)
+    email=models.ForeignKey(Cliente,on_delete=models.PROTECT)    
+    fecha_pedido = models.DateField(null=False)
+    estado_pedido=models.CharField(default="Pendiente", max_length=10, null=False, choices=ESTADO_PEDIDO)
+    productos = models.ManyToManyField(ProductoCarro)

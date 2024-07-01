@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='carrocompra',
             name='producto',
-            field=models.ForeignKey(default=django.utils.timezone.now, on_delete=django.db.models.deletion.PROTECT, to='aplicacion.producto'),
+            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.PROTECT, to='aplicacion.producto'),
             preserve_default=False,
         ),
         migrations.AlterField(
