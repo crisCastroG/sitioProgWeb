@@ -26,7 +26,7 @@ class CarroCompra(models.Model):
 
 class ProductoCarro(models.Model):
     id = models.AutoField(primary_key=True,null=False)
-    codigo_producto = models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(999999999)],null=False)
+    codigo_producto = models.ForeignKey(Producto,on_delete=models.PROTECT)
     cantidad = models.IntegerField(default=0, validators=[MinValueValidator(0),MaxValueValidator(250)])    
 
 class Pedido(models.Model):

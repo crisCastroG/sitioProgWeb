@@ -91,9 +91,12 @@ def editarCarrito(request):
 def exito(request):
     pedido = Pedido(email_id = request.user.email, fecha_pedido = datetime.now())
     pedido.save()
+    
     productos = CarroCompra.objects.filter(email_id = request.user.email)
     for p in productos:
-        productoCarro = ProductoCarro(codigo_producto = p.producto.codigo, cantidad = p.cantidad)
+        print(p.codigo)
+        producto = get_object_or_404(Producto, codigo = p.producto.codigo)
+        productoCarro = ProductoCarro(codigo_producto_id = producto.codigo, cantidad = p.cantidad)
         productoCarro.save()
         pedido.productos.add(productoCarro)
     for p in productos:
@@ -104,6 +107,7 @@ def info_producto(request, id):
     producto = get_object_or_404(Producto, codigo = id)
     if request.method == 'POST':
         cantidad = int(request.POST.get('cantidad'))
+        cliente, clienteCreado = Cliente.objects.get_or_create(email = request.user.email)
         carroCompra, creado = CarroCompra.objects.get_or_create(email_id = request.user.email, producto_id = id)
         if creado == True:
             CarroCompra.objects.filter(producto_id = id, email_id = request.user.email).update(cantidad = cantidad)
@@ -347,6 +351,7 @@ def detalleVenta(request,id):
     pedidos=get_object_or_404(Pedido, nro_pedido=id)
     form=UpdVentaForm(instance=pedidos)
     cliente=get_object_or_404(Cliente, email=pedidos.email.email)
+        
     if request.method=="POST":
          form=UpdVentaForm(request.POST, files=request.FILES, instance=pedidos)
          if form.is_valid():
