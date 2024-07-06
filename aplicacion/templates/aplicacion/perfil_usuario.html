@@ -85,7 +85,8 @@
               {% for b in pedidos %}
               <td>{{b.nro_pedido}}</td>
               <td>{{b.fecha_pedido}}</td>
-              <td>{{b.estado_pedido}}</td> 
+              <td>{{b.estado_pedido}}</td>
+              <td><a href="{% url "detalle_pedido" b.nro_pedido %}" role="button" class="btn btn-info btn-sm text-light">Ver detalles</a></td> 
               </tr>
               {% endfor %}
               <tr>

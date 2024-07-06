@@ -66,6 +66,16 @@ def modificarDatos(request, id):
 
     return render(request,'aplicacion/modificar_datos.html', datos)
 
+def detallePedido(request, id):
+    pedido=get_object_or_404(Pedido, nro_pedido=id)
+    productos = ProductoCarro.objects.filter(codigo_pedido_id = id)
+           
+    datos={
+        'pedido':pedido,
+        'productos':productos,
+    }
+    return render(request,'aplicacion/detalle_pedido.html',datos)
+
 def carrito(request):
     carroCompra = CarroCompra.objects.filter(email_id = request.user.email)
     total = 0
@@ -89,17 +99,20 @@ def editarCarrito(request):
     return render(request,'aplicacion/editar_carro.html', datos)
 
 def exito(request):
-    pedido = Pedido(email_id = request.user.email, fecha_pedido = datetime.now())
-    pedido.save()
-    
+    total = 0
+    cliente = Cliente.objects.get(email = request.user.email)  
     productos = CarroCompra.objects.filter(email_id = request.user.email)
+    for producto in productos:
+        total += producto.cantidad * int(Producto.objects.get(codigo = producto.producto_id).precio)
+    pedido = Pedido(email_id = request.user.email, fecha_pedido = datetime.now(), direccion_pedido = cliente.direccion, total_pedido = total)
+    pedido.save()
     for p in productos:
-        print(p.codigo)
         producto = get_object_or_404(Producto, codigo = p.producto.codigo)
-        productoCarro = ProductoCarro(codigo_producto_id = producto.codigo, cantidad = p.cantidad)
+        productoCarro = ProductoCarro(codigo_producto_id = producto.codigo, codigo_pedido_id = pedido.nro_pedido, cantidad = p.cantidad)
+        producto.stock = producto.stock - productoCarro.cantidad
+        producto.save()
         productoCarro.save()
-        pedido.productos.add(productoCarro)
-    for p in productos:
+    for p in productos: 
         p.delete()    
     return render(request,'aplicacion/exito.html')
 
@@ -348,12 +361,13 @@ def ventas(request):
     return render(request,'aplicacion/dashboard/ventas.html', datos)
 
 def detalleVenta(request,id):
-    pedidos=get_object_or_404(Pedido, nro_pedido=id)
-    form=UpdVentaForm(instance=pedidos)
-    cliente=get_object_or_404(Cliente, email=pedidos.email.email)
+    pedido=get_object_or_404(Pedido, nro_pedido=id)
+    form=UpdVentaForm(instance=pedido)
+    cliente=get_object_or_404(Cliente, email=pedido.email.email)
+    productos = ProductoCarro.objects.filter(codigo_pedido_id = id)
         
     if request.method=="POST":
-         form=UpdVentaForm(request.POST, files=request.FILES, instance=pedidos)
+         form=UpdVentaForm(request.POST, files=request.FILES, instance=pedido)
          if form.is_valid():
              form.save()
              messages.set_level(request,messages.WARNING)
@@ -362,7 +376,8 @@ def detalleVenta(request,id):
     
     datos={
         'cliente':cliente,
-        'pedidos':pedidos,
+        'pedidos':pedido,
+        'productos':productos,
         'form':form
     }
     return render(request,'aplicacion/dashboard/detalles_venta.html',datos)

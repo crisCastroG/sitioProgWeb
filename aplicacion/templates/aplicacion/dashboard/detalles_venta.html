@@ -26,6 +26,9 @@
                             <p class="card-text"><span style="font-weight:bold;">Rut: </span>{{cliente.rut}}</p>
                             <p class="card-text"><span style="font-weight:bold;">Correo Electronico: </span>{{cliente.email}}</p>
                             <p class="card-text"><span style="font-weight:bold;">Direccion: </span>{{cliente.direccion}}</p>
+                            {% for p in productos %}
+                            <p class="card-text"><span style="font-weight:bold;">codigo:{{p.codigo_producto.nombre_pro}}</p>
+                            {% endfor %}
                         </div>
     </div>
     <div class="container-fluid">

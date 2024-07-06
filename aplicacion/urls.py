@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import añadirProducto, busqueda, carrito, dashboard, detalleVenta, editarCarrito, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, logout, modificarDatos, modificarPerfil, pago, perfil, categoria, registro, salir, ventas, modificarCliente, eliminarCliente,eliminarProducto,modificarProducto
+from .views import añadirProducto, busqueda, carrito, dashboard, detallePedido, detalleVenta, editarCarrito, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, logout, modificarDatos, modificarPerfil, pago, perfil, categoria, registro, salir, ventas, modificarCliente, eliminarCliente,eliminarProducto,modificarProducto
 
 urlpatterns = [
     #URLS DE APLICACION
@@ -16,6 +16,7 @@ urlpatterns = [
     path('perfil/',perfil, name='perfil'),
     path('perfil/modificar/<id>',modificarPerfil, name='modificar_perfil'),
     path('perfil/modificar_datos/<id>',modificarDatos, name='modificar_datos'),
+    path('perfil/detalle_pedido/<id>',detallePedido, name='detalle_pedido'),
     #URLS DE LOGIN
     path('login/',login, name='login'),
     path('salir/',salir, name='salir'),

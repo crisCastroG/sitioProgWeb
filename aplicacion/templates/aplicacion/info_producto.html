@@ -18,6 +18,7 @@
         <div class="bg-light border rounded p-3">
           <h1 class="text-start ">Precio:</h1>
           <h1 class="text-end "> ${{producto.precio}}</h1>
+          <h5 class="text-start">Stock: {{producto.stock}}</h5>
           <p>Cantidad
           <p>
           {% if user.is_authenticated %}
@@ -25,7 +26,9 @@
           {% csrf_token %}
           <div class="row justify-content-between ">
             <div class="col-12 col-sm-4">
-              <input type="number" class="form-control" style="width: a;" name="cantidad" value="1" min="1"/>
+              {% with stockActual=producto.stock%}
+              <input type="number" class="form-control" style="width: a;" name="cantidad" value="1" min="1" max="{{stockActual}}"/>
+              {% endwith %}
             </div>
             <div class="col-12 col-sm-6">
               <button type="submit" class="btn btn-success" href="{% url "info_producto" producto.codigo %}">
