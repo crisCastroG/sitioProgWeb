@@ -62,12 +62,7 @@ class UpdClienteForm(forms.ModelForm):
     direccion = forms.CharField(required=True, min_length=3, max_length=200)
     class Meta:
         model = Cliente
-<<<<<<< HEAD
-        fields = ['nombre','email','direccion']
-=======
-
         fields = ['nombre','rut','direccion']
->>>>>>> 8e8e834c5380c21786ac058d4f0bc3ff564b6315
 
 class ProductoForm(forms.ModelForm):   
     codigo=forms.CharField(max_length=10,
@@ -82,7 +77,7 @@ class UpdProductoForm(forms.ModelForm):
 
     class Meta:
         model = Producto
-        fields = ['foto_pro','precio','nombre_pro','descripcion', 'stock']
+        fields = ['foto_pro','precio','nombre_pro','categoria','descripcion', 'stock']
 
 class CustomCreationForm(UserCreationForm):
     
