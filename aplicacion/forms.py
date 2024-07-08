@@ -8,7 +8,7 @@ class UpdClienteForm(forms.ModelForm):
 
     class Meta:
         model = Cliente
-        fields = ['nombre','rut','direccion']
+        fields = ['nombre','email','direccion']
 
 class ProductoForm(forms.ModelForm):   
     codigo=forms.CharField(max_length=10,
