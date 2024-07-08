@@ -26,17 +26,43 @@
                             <p class="card-text"><span style="font-weight:bold;">Rut: </span>{{cliente.rut}}</p>
                             <p class="card-text"><span style="font-weight:bold;">Correo Electronico: </span>{{cliente.email}}</p>
                             <p class="card-text"><span style="font-weight:bold;">Direccion: </span>{{cliente.direccion}}</p>
-                            {% for p in productos %}
-                            <p class="card-text"><span style="font-weight:bold;">codigo:{{p.codigo_producto.nombre_pro}}</p>
-                            {% endfor %}
+                            <p class="card-text"><span style="font-weight:bold;">Total Pagado: {{pedidos.total_pedido}}</p>
                         </div>
+            </div>
+        </div>
+    </div>
+    <br>
+         <div class="row mt-5">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="border border-rounded">
+                {% for  p in productos %}
+                <div class="row border-bottom">
+                <div class="col-12 col-sm-3">
+                    <img src="{{ p.codigo_producto.foto_pro.url }}" class="product-cart" alt="" height="100">
+                </div>
+                <div class="col-12 col-sm-7 p-2">
+                    <p>{{p.codigo_producto.nombre_pro}}</p>
+                    <p class="text-start">${{p.codigo_producto.precio}}</p>
+                </div>
+                <div class="col-12 col-sm-1 p-2">
+                    <p>Cantidad: {{p.cantidad}}</p>
+                    {% with precio=p.codigo_producto.precio %}
+                    <p>Subtotal: ${{ precio|mul:p.cantidad}}</p>
+                    {% endwith %}
+                </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-2"></div>
     </div>
     <div class="container-fluid">
         <div class='mt-5 mb-5'>    
             <div class="row">
                     <div class="col-lg-12">
                     <div class="p-5 border rounded">
-                        <h2>VENTA</h2>
+                        <h2>EDITAR PEDIDO</h2>
                         <h5>Nro Pedido - {{pedidos.nro_pedido}}</h5>
                         <form action="" method="post" enctype="multipart/form-data">
                            {% csrf_token %}
