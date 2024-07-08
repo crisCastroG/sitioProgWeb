@@ -92,13 +92,21 @@ def carrito(request):
 
 def editarCarrito(request):
     carroCompra = CarroCompra.objects.filter(email_id = request.user.email)
-    for producto in carroCompra:
-        total += producto.cantidad * int(Producto.objects.get(codigo = producto.producto_id).precio)
+    if request.method == 'POST':
+        producto = get_object_or_404(CarroCompra, codigo = request.POST.get('codigo')) 
+        producto.delete()
     datos = {
-        'carrito' : carroCompra,
-        'total' : total
+        'carrito' : carroCompra
     }
     return render(request,'aplicacion/editar_carro.html', datos)
+
+def editarEliminar(request, id):
+    carroCompra = CarroCompra.objects.filter(email_id = request.user.email)
+
+    datos = {
+        'carrito' : carroCompra
+    }
+    return render(request,'aplicacion/carrito_eliminar.html', datos)
 
 def exito(request):
     total = 0
@@ -152,8 +160,10 @@ def pago(request):
     for producto in carroCompra:
         total += producto.cantidad * int(Producto.objects.get(codigo = producto.producto_id).precio)
         if producto.cantidad > Producto.objects.get(codigo=producto.producto_id).stock:
-            messages.error(request,"Error, uno o mas de los productos no tiene suficiente stock")
-            redirect(to='carrito')
+            messages.error(request,"Error, uno o más de los productos no tiene suficiente stock")
+            print()
+            return redirect(to='carrito')
+
     datos = {
         'carrito' : carroCompra,
         'total' : total,

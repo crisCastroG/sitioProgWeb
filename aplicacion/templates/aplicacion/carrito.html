@@ -22,11 +22,12 @@
 <body>
   {% include "aplicacion/sitio_header_base.html" %}
   <div class="container-fluid mt-3 mb-3">
-    <h1>Tu carro de compra</h1>
+    <h1 class="ms-5">Tu carro de compra</h1>
     <div class="row justify-content-center">
-      <div class="col-12 col-md-9 border rounded ms-5 me-5" style="width: 640px;">
+      <div class="col-12 col-md-9 ms-5 me-5" style="width: 640px;">
+        <a href="{% url "editar_carrito" %}" class="text-primary">Editar carrito.</a>
     {% for  p in carrito %}
-    <div class="row border-bottom">
+    <div class="row border border-rounded shadow">
       <div class="col-12 col-sm-3">
         <img src="{{ p.producto.foto_pro.url }}" class="product-cart" alt="">
       </div>

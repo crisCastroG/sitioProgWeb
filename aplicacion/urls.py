@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import añadirProducto, busqueda, carrito, dashboard, detallePedido, detalleVenta, editarCarrito, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, logout, modificarDatos, modificarPerfil, pago, perfil, categoria, registro, salir, ventas, modificarCliente, eliminarCliente,eliminarProducto,modificarProducto
+from .views import añadirProducto, busqueda, carrito, dashboard, detallePedido, detalleVenta, editarCarrito, editarEliminar, editarProducto, exito, index, info_producto, infoUsuario, listaClientes, listaProductos, login, logout, modificarDatos, modificarPerfil, pago, perfil, categoria, registro, salir, ventas, modificarCliente, eliminarCliente,eliminarProducto,modificarProducto
 
 urlpatterns = [
     #URLS DE APLICACION

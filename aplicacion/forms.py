@@ -19,15 +19,7 @@ class RUTField(forms.CharField):
 
 
 def validar_rut(rut: str) -> bool:
-    """
-    Valida un RUT chileno.
-    
-    Parámetros:
-    rut (str): El RUT a validar, en formato '12345678-9'.
 
-    Retorna:
-    bool: True si el RUT es válido, False en caso contrario.
-    """
     rut = rut.replace(".", "").upper()
     if not '-' in rut:
         return False
