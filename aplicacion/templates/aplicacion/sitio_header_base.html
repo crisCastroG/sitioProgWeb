@@ -75,31 +75,34 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="{% url "categoria" %}">Procesadores</a>
+          <a class="nav-link" href="{% url "categoria" 'PROCESADORES'%}">Procesadores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url "categoria" %}">GPUS</a>
+          <a class="nav-link" href="{% url "categoria" 'TARJETAS_GRAFICAS' %}">GPUS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url "categoria" %}">Motherboards</a>
+          <a class="nav-link" href="{% url "categoria" 'PLACAS_BASE' %}">Motherboards</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url "categoria" %}">Memorias</a>
+          <a class="nav-link" href="{% url "categoria" 'MEMORIA_RAM' %}">Memorias</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url "categoria" %}">Discos Duros</a>
+          <a class="nav-link" href="{% url "categoria" 'ALMACENAMIENTO' %}">Discos Duros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url "categoria" %}">Gabinetes</a>
+          <a class="nav-link" href="{% url "categoria" 'GABINETES' %}">Gabinetes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url "categoria" %}">Fuentes</a>
+          <a class="nav-link" href="{% url "categoria" 'FUENTES_DE_ALIMENTACION' %}">Fuentes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url "categoria" %}">Ventilación</a>
+          <a class="nav-link" href="{% url "categoria" 'VENTILACION' %}">Ventilación</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url "categoria" %}">Accesorios</a>
+          <a class="nav-link" href="{% url "categoria" 'ACCESORIOS' %}">Accesorios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "categoria" 'SONIDO' %}">Sonido</a>
         </li>
       </ul>
     </div>

@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.forms import UserCreationForm
-from aplicacion.enumeraciones import ESTADO_PEDIDO
+from aplicacion.enumeraciones import CATEGORIA, ESTADO_PEDIDO
 
 
 class Cliente(models.Model):
@@ -17,6 +17,7 @@ class Producto(models.Model):
     nombre_pro=models.CharField(max_length=100, null=False)
     descripcion=models.CharField( max_length=500, null=False)
     stock=models.IntegerField(default=0, validators=[MinValueValidator(0),MaxValueValidator(999)],null=False)
+    categoria=models.CharField(default="PROCESADORES", max_length=25, null=False, choices=CATEGORIA)
 
 class CarroCompra(models.Model):
     codigo = models.AutoField(primary_key=True,null=False)
@@ -30,7 +31,7 @@ class Pedido(models.Model):
     email=models.ForeignKey(Cliente,on_delete=models.PROTECT)    
     fecha_pedido = models.DateField(null=False)
     direccion_pedido = models.CharField(max_length=500, null=True)
-    estado_pedido=models.CharField(default="Pendiente", max_length=10, null=False, choices=ESTADO_PEDIDO)
+    estado_pedido=models.CharField(default="PENDIENTE", max_length=10, null=False, choices=ESTADO_PEDIDO)
 
 class ProductoCarro(models.Model):
     id = models.AutoField(primary_key=True,null=False)
