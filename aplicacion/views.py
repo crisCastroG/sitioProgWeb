@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from aplicacion.enumeraciones import CATEGORIA
 from .models import CarroCompra, Cliente, Pedido, Producto, ProductoCarro
 from django.shortcuts import get_object_or_404, redirect
 from .forms import UpdClienteForm, ProductoForm, UpdProductoForm, CustomCreationForm, UpdVentaForm
@@ -157,9 +159,12 @@ def pago(request):
     }
     return render(request,'aplicacion/pago.html', datos)
 
-def categoria(request):
-    productos = Producto.objects.all()
+def categoria(request, categoria):
+    productos = Producto.objects.filter(categoria=categoria)
+    nomb_categoria = dict(CATEGORIA).get(categoria)
+    
     datos = {
+        "categoria" : nomb_categoria,
         "productos" : productos
     }
     return render(request,'aplicacion/categoria.html', datos)

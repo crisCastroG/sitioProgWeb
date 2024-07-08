@@ -154,3 +154,19 @@ CODIGO_PAIS= {
     ("ZM", "ZAMBIA"),
     ("Sin asignar","Sin asignar")
 }
+
+CATEGORIA = {
+    ("PROCESADORES", "Procesadores"),
+    ("TARJETAS_GRAFICAS", "Tarjetas Gráficas"),
+    ("PLACAS_BASE", "Placas Base"),
+    ("MEMORIA_RAM", "Memoria RAM"),
+    ("ALMACENAMIENTO", "Almacenamiento (HDD/SSD)"),
+    ("FUENTES_DE_ALIMENTACION", "Fuentes de Alimentación"),
+    ("VENTILACION", "Ventilación (Ventiladores/Líquida)"),
+    ("GABINETES", "Gabinetes"),
+    ("MONITORES", "Monitores"),
+    ("TECLADOS", "Teclados"),
+    ("RATONES", "Ratones"),
+    ("SONIDO", "Sonido"),
+    ("ACCESORIOS", "Accesorios")
+}
