@@ -35,6 +35,17 @@
         })
       </script>
     {% endif %}
+    {% if message.level == 30 %}
+      <script>
+        //alerta de error
+        Swal.fire({
+          title: 'Error',
+          text: '{{ message }}',
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        })
+      </script>
+    {% endif %}
   {% endfor %}
 
 {% endif %}
@@ -79,6 +90,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url "categoria" 'TARJETAS_GRAFICAS' %}">GPUS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "categoria" 'MONITORES' %}">Monitores</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url "categoria" 'PLACAS_BASE' %}">Motherboards</a>

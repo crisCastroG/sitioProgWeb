@@ -151,6 +151,9 @@ def pago(request):
     form = UpdClienteForm(instance = cliente)
     for producto in carroCompra:
         total += producto.cantidad * int(Producto.objects.get(codigo = producto.producto_id).precio)
+        if producto.cantidad > Producto.objects.get(codigo=producto.producto_id).stock:
+            messages.error(request,"Error, uno o mas de los productos no tiene suficiente stock")
+            redirect(to='carrito')
     datos = {
         'carrito' : carroCompra,
         'total' : total,
