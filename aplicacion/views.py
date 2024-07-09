@@ -94,7 +94,12 @@ def editarCarrito(request):
     carroCompra = CarroCompra.objects.filter(email_id = request.user.email)
     if request.method == 'POST':
         producto = get_object_or_404(CarroCompra, codigo = request.POST.get('codigo')) 
-        producto.delete()
+        if 'editar_producto' in request.POST:
+            producto.cantidad = request.POST.get('cantidad')
+            producto.save()
+        elif 'eliminar_producto' in request.POST:
+            producto.delete()
+       
     datos = {
         'carrito' : carroCompra
     }
@@ -246,9 +251,11 @@ def listaClientes(request):
 def infoUsuario(request, id):
     
     #persona=Persona.objects.get(rut=id)
-    cliente=get_object_or_404(Cliente,rut=id)
+    cliente=get_object_or_404(Cliente,email=id)
+    pedidos = Pedido.objects.filter(email_id = id)
     
     datos={
+        "pedidos":pedidos,
         "cliente":cliente
     }
     return render(request,'aplicacion/dashboard/infousuario.html',datos)
@@ -276,20 +283,24 @@ def modificarCliente(request,id):
 @staff_member_required
 def eliminarCliente(request, id):
     cliente=get_object_or_404(Cliente,rut=id)
+    pedidos = Pedido.objects.filter(email=cliente)
 
     datos={
-        "cliente":cliente
+        "cliente":cliente,
+        "pedidos":pedidos
     }
+    for pedido in pedidos:
+        ProductoCarro.objects.filter(codigo_pedido=pedido).delete()
+        pedidos.delete()
 
     if request.method=="POST":
-        if cliente.imagen:
-            remove(path.join(str(settings.MEDIA_ROOT).replace('/media','')+cliente.imagen.url))
         cliente.delete()
         messages.error(request, 'Cliente Eliminado')
         return redirect(to='cliente')
  
-        
+       
     return render(request,'aplicacion/dashboard/eliminarcliente.html',datos)
+
 
 #### PRODUCTOS ####
 

@@ -29,7 +29,7 @@
       <div class="col-8">
         <a href="{% url "carrito" %}" class="text-primary">Volver</a>
     {% for  p in carrito %}
-    <div class="row border shadow ">
+    <div class="row border shadow">
       <div class="col-12 col-sm-2">
         <img src="{{ p.producto.foto_pro.url }}" class="product-cart" alt="">
       </div>
@@ -38,26 +38,26 @@
         <p class="text-start">${{p.producto.precio}}</p>
       </div>
       <div class="col-12 col-sm-2 p-2">
-        <p>Cantidad: {{p.cantidad}}</p>
+        <form action="" method="post">
+        {% csrf_token %}
+        <p>Cantidad:</p><input type="number" class="form-control" style="width: a;" name="cantidad" value="{{p.cantidad}}" min="1"></input>
         {% with precio=p.producto.precio %}
         <p>Subtotal: ${{ precio|mul:p.cantidad}}</p>
         {% endwith %}
       </div>
       <div class="col-12 col-sm-4 p-2">
-        <form action="" method="post">
-        {% csrf_token %}
         <input type="hidden" name="codigo" value="{{p.codigo}}" ></input>
-        <button type="submit" class="btn btn-danger" href="{% url "editar_carrito" %}">Eliminar del carro</button>
+        <button type="submit" name="editar_producto" class="btn btn-success text-center m-3" href="{% url "editar_carrito" %}">Editar producto</button>
+        <button type="submit" name="eliminar_producto" class="btn btn-danger m-3" href="{% url "editar_carrito" %}">Eliminar del carro</button>
         </form>
       </div>
       </div>
       <div class="col-2"></div>
-    </div>
-    
 
-    </div>
     {% endfor %}
+  </div>
 
+  
     
 </body>
 

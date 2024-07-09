@@ -38,5 +38,27 @@
                 </div>
             </div>
             <div class="col-sm-4"></div>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                      <th scope="col">Nro Pedido</th>
+                      <th scope="col">Cliente</th>
+                      <th scope="col">Fecha Pedido</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  {% for b in pedidos %}
+                  <td>{{b.nro_pedido}}</td>
+                  <td>{{b.email.nombre}}</td>
+                  <td>{{b.fecha_pedido}}</td>
+                  <td>{{b.estado_pedido}}</td>
+                  <td><a href="{% url "detalle" b.nro_pedido %}" role="button" class="btn btn-info btn-sm text-light">Ver detalles</a></td> 
+                  </tr>
+                  {% endfor %}
+                  <tr>
+                </tbody>
+              </table>
         </div>
     </div>
